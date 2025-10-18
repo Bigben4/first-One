@@ -1,0 +1,77 @@
+/* Red & White themed styles for login/signup */
+:root{
+  --red: #c62828;
+  --red-700: #b71c1c;
+  --white: #ffffff;
+  --muted: #f7f7f7;
+  --text: #222;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: linear-gradient(180deg, var(--white) 0%, #fff7f7 100%);
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px;
+}
+
+.wrap{width:100%;max-width:920px;padding:20px}
+.card{
+  background:var(--white);
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(198,36,36,0.12);
+  overflow:hidden;
+  display:flex;
+  gap:24px;
+  align-items:stretch;
+  padding:28px;
+}
+
+/* simple appear animation */
+.card{opacity:0;transform:translateY(8px);animation:cardIn .42s ease forwards}
+@keyframes cardIn{to{opacity:1;transform:none}}
+
+.brand{
+  min-width:220px;
+  padding:12px 18px;
+  border-right:1px solid #fdecea;
+}
+.brand h1{margin:0;color:var(--red);letter-spacing:1px}
+.brand .tag{margin:6px 0 0;color:#8b1f1f;font-size:13px}
+
+.forms{flex:1;padding:6px 12px}
+.form{display:none}
+.form.active{display:block}
+.form h2{margin:0 0 14px;color:var(--red)}
+.input{margin-bottom:12px}
+.input label{display:block;font-size:13px;margin-bottom:6px;color:#6b1a1a}
+.input input{width:100%;padding:10px 12px;border:1px solid #f0d6d6;border-radius:8px;background:#fff}
+
+.password-wrap{position:relative}
+.eye{position:absolute;right:8px;top:36px;border:0;background:transparent;cursor:pointer;font-size:16px;padding:6px;border-radius:6px}
+.eye:active{transform:scale(.98)}
+
+/* subtle form switch animation */
+.form{opacity:0;transform:translateX(8px);transition:all .28s ease}
+.form.active{opacity:1;transform:none}
+
+.btn{display:inline-block;padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
+.btn.red{background:var(--red);color:var(--white)}
+.btn.white{background:transparent;color:var(--red);border:2px solid var(--red)}
+
+.switch{margin-top:12px;font-size:14px;color:#6b1a1a}
+.switch a{color:var(--red);text-decoration:none;font-weight:600}
+
+.message{margin-top:14px;padding:10px 12px;border-radius:8px;border:1px solid transparent;min-height:24px}
+.message.success{background:#f7fff7;border-color:#dff7df;color:#2a6b2a}
+.message.error{background:#fff5f5;border-color:#ffd6d6;color:#8b1a1a}
+
+@media (max-width:640px){
+  .card{flex-direction:column;padding:18px}
+  .brand{border-right:none;border-bottom:1px solid #fdecea}
+}

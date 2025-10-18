@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Login · Signup</title>
+</head>
+<body>
+<div class="wrap">
+    <div class="card" id="card">
+        <div class="brand">
+            <h1>Brand</h1>
+            <p class="tag">Red & White — account access</p>
+        </div>
+
+        <div class="forms">
+            <form id="loginForm" class="form active" aria-hidden="false">
+                <h2>Log in</h2>
+                <div class="input">
+                    <label for="loginEmail">Email</label>
+                    <input id="loginEmail" type="email" name="email" required>
+                </div>
+                <div class="input password-wrap">
+                    <label for="loginPassword">Password</label>
+                    <input id="loginPassword" type="password" name="password" required minlength="6">
+                    <button type="button" class="eye" data-target="loginPassword" title="Show password" aria-label="Show password">👁️</button>
+                </div>
+                <button type="submit" class="btn red">Log in</button>
+                <p class="switch">Don't have an account? <a href="#" data-switch="signup">Sign up</a></p>
+            </form>
+
+            <form id="signupForm" class="form" aria-hidden="true">
+                <h2>Create account</h2>
+                <div class="input">
+                    <label for="signupName">Full name</label>
+                    <input id="signupName" type="text" name="name" required>
+                </div>
+                <div class="input">
+                    <label for="signupEmail">Email</label>
+                    <input id="signupEmail" type="email" name="email" required>
+                </div>
+                <div class="input password-wrap">
+                    <label for="signupPassword">Password</label>
+                    <input id="signupPassword" type="password" name="password" required minlength="6">
+                    <button type="button" class="eye" data-target="signupPassword" title="Show password" aria-label="Show password">👁️</button>
+                </div>
+                <!-- removed generate secure password button as requested -->
+                <button type="submit" class="btn white">Sign up</button>
+                <p class="switch">Already have an account? <a href="#" data-switch="login">Log in</a></p>
+            </form>
+        </div>
+
+        <div id="message" class="message" aria-live="polite"></div>
+    </div>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
