@@ -1,7 +1,7 @@
 {
-  "name": "mock-auth-server",
+  "name": "mock-auth-backend",
   "version": "1.0.0",
-  "private": true,
+  "description": "Simple mock backend for login/signup used by demo client",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

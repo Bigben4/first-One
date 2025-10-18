@@ -45,9 +45,18 @@
       showMessage('Please enter email and password.', 'error');
       return;
     }
-    // fake success
-    showMessage('Logged in — welcome back!', 'success');
-    // In real app: send fetch to server here
+    // call mock backend
+    fetch('/api/login', {
+      method: 'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({email, password: pw})
+    }).then(r => r.json()).then(res => {
+      if(res && res.ok){
+        showMessage('Logged in — welcome back!', 'success');
+      } else {
+        showMessage(res && res.error ? res.error : 'Login failed', 'error');
+      }
+    }).catch(()=> showMessage('Network error during login', 'error'));
   });
 
   signupForm.addEventListener('submit', (e) => {
@@ -59,12 +68,37 @@
       showMessage('Please complete all fields to sign up.', 'error');
       return;
     }
-    // fake success
-    showMessage('Account created. You can now log in.', 'success');
-    // switch to login after a short delay
-    setTimeout(() => switchTo('login'), 900);
+    fetch('/api/signup', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({name, email, password: pw})
+    }).then(r => r.json()).then(res => {
+      if(res && res.ok){
+        showMessage('Account created. You can now log in.', 'success');
+        setTimeout(() => switchTo('login'), 900);
+      } else {
+        showMessage(res && res.error ? res.error : 'Signup failed', 'error');
+      }
+    }).catch(()=> showMessage('Network error during signup', 'error'));
   });
 
   // initial state
   switchTo('login');
+
+  // Eye-button: reveal password for 2 seconds when tapped
+  document.querySelectorAll('.eye-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+      const input = document.getElementById(targetId);
+      if(!input) return;
+      const prevType = input.type;
+      input.type = 'text';
+      // optionally add a small pulse animation
+      btn.classList.add('active');
+      setTimeout(() => {
+        input.type = prevType;
+        btn.classList.remove('active');
+      }, 2000);
+    });
+  });
 })();

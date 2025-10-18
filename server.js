@@ -1,35 +1,31 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
+
 const app = express();
-const port = process.env.PORT || 3000;
-
 app.use(bodyParser.json());
-app.use((req, res, next) => {
-  // enable CORS for local file testing
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (req.method === 'OPTIONS') return res.sendStatus(200);
-  next();
-});
 
-// simple in-memory "db"
-const users = new Map();
+// serve static client files from this folder
+app.use(express.static(path.join(__dirname)));
+
+// very small in-memory "users" store
+const users = [];
 
 app.post('/api/signup', (req, res) => {
   const { name, email, password } = req.body || {};
-  if (!name || !email || !password) return res.status(400).json({ ok: false, message: 'Missing fields' });
-  if (users.has(email)) return res.status(409).json({ ok: false, message: 'Email already registered' });
-  users.set(email, { name, password });
-  return res.json({ ok: true, message: 'Created' });
+  if(!name || !email || !password) return res.json({ok:false, error:'Missing fields'});
+  if(users.find(u => u.email === email)) return res.json({ok:false, error:'Email already registered'});
+  users.push({name, email, password});
+  return res.json({ok:true});
 });
 
 app.post('/api/login', (req, res) => {
   const { email, password } = req.body || {};
-  if (!email || !password) return res.status(400).json({ ok: false, message: 'Missing fields' });
-  const u = users.get(email);
-  if (!u) return res.status(404).json({ ok: false, message: 'User not found' });
-  if (u.password !== password) return res.status(401).json({ ok: false, message: 'Invalid credentials' });
-  return res.json({ ok: true, message: 'Logged in', name: u.name });
+  if(!email || !password) return res.json({ok:false, error:'Missing fields'});
+  const u = users.find(u => u.email === email && u.password === password);
+  if(!u) return res.json({ok:false, error:'Invalid credentials'});
+  return res.json({ok:true, name: u.name});
 });
 
-app.listen(port, () => console.log('Mock auth server listening on http://localhost:' + port));
+const port = process.env.PORT || 3000;
+app.listen(port, ()=> console.log('Mock server running on http://localhost:'+port));

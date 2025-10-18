@@ -32,10 +32,6 @@ body{
   padding:28px;
 }
 
-/* simple appear animation */
-.card{opacity:0;transform:translateY(8px);animation:cardIn .42s ease forwards}
-@keyframes cardIn{to{opacity:1;transform:none}}
-
 .brand{
   min-width:220px;
   padding:12px 18px;
@@ -52,13 +48,27 @@ body{
 .input label{display:block;font-size:13px;margin-bottom:6px;color:#6b1a1a}
 .input input{width:100%;padding:10px 12px;border:1px solid #f0d6d6;border-radius:8px;background:#fff}
 
-.password-wrap{position:relative}
-.eye{position:absolute;right:8px;top:36px;border:0;background:transparent;cursor:pointer;font-size:16px;padding:6px;border-radius:6px}
-.eye:active{transform:scale(.98)}
+/* password input wrapper to position the eye button */
+.input.password{position:relative}
+.input.password .eye-btn{
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  background:transparent;border:0;padding:6px;border-radius:6px;cursor:pointer;color:var(--red);
+  display:flex;align-items:center;justify-content:center
+}
+.input.password .eye-btn svg{display:block}
 
-/* subtle form switch animation */
-.form{opacity:0;transform:translateX(8px);transition:all .28s ease}
+/* animations */
+.form{opacity:0;transform:translateY(6px);transition:opacity .28s ease, transform .28s ease}
 .form.active{opacity:1;transform:none}
+.brand h1{transition:color .28s ease}
+.btn{transition:transform .12s ease, box-shadow .12s ease}
+.btn:active{transform:translateY(1px)}
+
+/* subtle focus styles */
+.input input:focus{outline:none;box-shadow:0 0 0 4px rgba(198,36,36,0.06);border-color:var(--red-700)}
 
 .btn{display:inline-block;padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
 .btn.red{background:var(--red);color:var(--white)}
